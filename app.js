@@ -1,5 +1,5 @@
 const express = require('express');
-var port = process.env.PORT || 3000;
+var port = process.env.PORT || 9000;
 var routes = require('./route');
 var app = express();
 
@@ -10,14 +10,6 @@ app.use(function (req, res, next) {
     err.status = 404;
     next(err);
 });
-
-
-if (app.get('env') === 'development') {
-    app.use(function (err, req, res, next) {
-        res.status(err.status || 500);
-        res.send("error");
-    });
-}
 
 app.use(function (err, req, res, next) {
     res.status(err.status || 500);
