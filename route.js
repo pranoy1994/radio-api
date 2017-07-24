@@ -6,6 +6,7 @@ var router = express.Router();
 
 
 router.get("/2g", (req, res)=>{
+    var url = req.param('url');
     res.writeHead(200, {'content-type':'audio/mpeg'});
     var encoder = lame.Encoder({
       channels: 2,
@@ -22,9 +23,7 @@ router.get("/2g", (req, res)=>{
       decoder.pipe(encoder);
     });
     
-
-    var url = 'http://ibadat.out.airtime.pro:8000/ibadat_b';
-    icecast.get(url, function(res) {
+    icecast.get('http://'+url, function(res) {
       res.on('data', function(data) {
         decoder.write(data);
       });
@@ -39,6 +38,7 @@ router.get("/2g", (req, res)=>{
 
 
 router.get("/3g", (req, res)=>{
+    var url = req.param('url');
     res.writeHead(200, {'content-type':'audio/mpeg'});
     var encoder = lame.Encoder({
       channels: 2,
@@ -56,8 +56,7 @@ router.get("/3g", (req, res)=>{
     });
     
 
-    var url = 'http://ibadat.out.airtime.pro:8000/ibadat_b';
-    icecast.get(url, function(res) {
+    icecast.get('http://'+url, function(res) {
       res.on('data', function(data) {
         decoder.write(data);
       });
